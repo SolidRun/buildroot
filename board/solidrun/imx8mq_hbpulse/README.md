@@ -8,7 +8,7 @@ The most basic image designed to boot from an SD-Card can be built with the foll
 
 ```
 git clone https://github.com/SolidRun/buildroot.git --branch sr-latest
-cd sr-latest
+cd buildroot
 make solidrun_imx8mq_hbpulse_defconfig
 make
 ```
