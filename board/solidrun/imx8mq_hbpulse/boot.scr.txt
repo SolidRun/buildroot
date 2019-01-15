@@ -1,0 +1,6 @@
+setenv finduuid "part uuid mmc 1:1 uuid"
+run finduuid
+setenv bootargs "${bootargs} console=ttymxc0,115200 root=PARTUUID=${uuid} rootwait"
+load mmc 1:1 ${fdt_addr_r} /boot/${fdtfile}
+load mmc 1:1 ${kernel_addr_r} /boot/Image
+booti ${kernel_addr_r} - ${fdt_addr_r}
