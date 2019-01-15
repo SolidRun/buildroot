@@ -179,6 +179,18 @@ config BR2_TARGET_UBOOT_NEEDS_ATF_BL31
 	  variable pointing to ATF's BL31 binary, is passed during the
 	  Buildroot build.
 
+config BR2_TARGET_UBOOT_NEEDS_IMX_FIRMWARE
+	bool "U-Boot needs IMX FIRMWARE"
+	depends on BR2_TARGET_UBOOT_FORMAT_IMX_FIT
+	select BR2_PACKAGE_FIRMWARE_IMX 
+	help
+	  Mainline u-boot for the iMX8M based SOCs is generating the
+	  U-Boot FIT image as part of the build process.  This requires
+	  that all the DDR and HDMI firmwares are available for U-Boot
+	  at build time.  This option sets that dependency and makes
+	  sure the BINDIR variable pointing to their location, is passed
+	  to U-Boot during the Buildroot build.
+
 menu "U-Boot binary format"
 
 config BR2_TARGET_UBOOT_FORMAT_AIS
@@ -206,6 +218,9 @@ config BR2_TARGET_UBOOT_FORMAT_IMG
 
 config BR2_TARGET_UBOOT_FORMAT_IMX
 	bool "u-boot.imx"
+
+config BR2_TARGET_UBOOT_FORMAT_IMX_FIT
+	bool "flash.bin"
 
 config BR2_TARGET_UBOOT_FORMAT_NAND_BIN
 	bool "u-boot-nand.bin"

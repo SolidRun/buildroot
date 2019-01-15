@@ -47,6 +47,8 @@ uboot_image()
 		echo "u-boot-dtb.imx"
 	elif grep -Eq "^BR2_TARGET_UBOOT_FORMAT_IMX=y$" ${BR2_CONFIG}; then
 		echo "u-boot.imx"
+	elif grep -Eq "^BR2_TARGET_UBOOT_FORMAT_IMX_FIT=y$" ${BR2_CONFIG}; then
+		echo "flash.bin"
 	fi
 }
 

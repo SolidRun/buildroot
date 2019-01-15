@@ -90,6 +90,11 @@ UBOOT_BINS += u-boot.imx
 UBOOT_MAKE_TARGET += u-boot.imx
 endif
 
+ifeq ($(BR2_TARGET_UBOOT_FORMAT_IMX_FIT),y)
+UBOOT_BINS = flash.bin
+UBOOT_MAKE_TARGET += flash.bin
+endif
+
 ifeq ($(BR2_TARGET_UBOOT_FORMAT_SB),y)
 UBOOT_BINS += u-boot.sb
 UBOOT_MAKE_TARGET += u-boot.sb
@@ -138,6 +143,11 @@ UBOOT_MAKE_OPTS += \
 ifeq ($(BR2_TARGET_UBOOT_NEEDS_ATF_BL31),y)
 UBOOT_DEPENDENCIES += arm-trusted-firmware
 UBOOT_MAKE_OPTS += BL31=$(BINARIES_DIR)/bl31.bin
+endif
+
+ifeq ($(BR2_TARGET_UBOOT_NEEDS_IMX_FIRMWARE),y)
+UBOOT_DEPENDENCIES += firmware-imx
+UBOOT_MAKE_OPTS += BINDIR=$(BINARIES_DIR)/
 endif
 
 ifeq ($(BR2_TARGET_UBOOT_NEEDS_DTC),y)

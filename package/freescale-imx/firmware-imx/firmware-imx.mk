@@ -33,6 +33,14 @@ define FIRMWARE_IMX_PREPARE_LPDDR4_FW
 		$(FIRMWARE_IMX_DDRFW_DIR)/lpddr4_pmu_train_$(1)_fw.bin
 endef
 
+ifeq ($(BR2_TARGET_UBOOT_NEEDS_IMX_FIRMWARE),y)
+define FIRMWARE_IMX_INSTALL_IMAGES_CMDS
+	cp $(@D)/firmware/ddr/synopsys/lpddr4*.bin \
+		$(BINARIES_DIR)/
+	cp $(@D)/firmware/hdmi/cadence/signed_hdmi_imx8m.bin \
+		$(BINARIES_DIR)/signed_hdmi_imx8m.bin
+endef
+else
 define FIRMWARE_IMX_INSTALL_IMAGES_CMDS
 	# Create padded versions of lpddr4_pmu_* and generate lpddr4_pmu_train_fw.bin.
 	# lpddr4_pmu_train_fw.bin is needed when generating imx8-boot-sd.bin
@@ -45,6 +53,7 @@ define FIRMWARE_IMX_INSTALL_IMAGES_CMDS
 	cp $(@D)/firmware/hdmi/cadence/signed_hdmi_imx8m.bin \
 		$(BINARIES_DIR)/signed_hdmi_imx8m.bin
 endef
+endif
 else
 define FIRMWARE_IMX_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/lib/firmware/imx
